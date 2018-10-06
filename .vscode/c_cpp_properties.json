@@ -1,20 +1,22 @@
 {
-  "configurations": [
-    {
-      "browse": {
-        "databaseFilename": "",
-        "limitSymbolsToIncludedHeaders": true
-      },
-      "includePath": [
-        "/home/aloe/catkin_ws/devel/include",
-        "/opt/ros/kinetic/include",
-        "/home/aloe/catkin_ws/src/cuda_test/include",
-        "/home/aloe/catkin_ws/src/ocams/include",
-        "/home/aloe/catkin_ws/src/ros_cuda_example/include",
-        "/home/aloe/catkin_ws/src/tetra_ds4/include",
-        "/usr/include"
-      ],
-      "name": "Linux"
-    }
-  ]
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/aloe/catkin_ws/devel/include",
+                "/opt/ros/kinetic/include",
+                "/home/aloe/catkin_ws/src/cuda_test/include",
+                "/home/aloe/catkin_ws/src/ocams/include",
+                "/home/aloe/catkin_ws/src/ros_cuda_example/include",
+                "/home/aloe/catkin_ws/src/tetra_ds4/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
 }
