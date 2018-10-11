@@ -4,7 +4,7 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="use_sim_time" value="true"/>
     <arg name="debug" value="false"/>
-    <arg name="world_name" value="$(find kobuki_2dnav_sim)/worlds/playground.world"/>
+    <arg name="world_name" value="$(find kobuki_2dnav_sim)/worlds/a.world"/>
   </include>
   
   <!-- spawn the robot -->
@@ -27,7 +27,23 @@
       filter_limit_negative: False
     </rosparam>
   </node>
-  <!-- nav stack -->
+
+  <arg name="yolo_weights_path"          default="$(find darknet_ros)/yolo_network_config/weights"/>
+  <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
+
+  <!-- Load parameters -->
+  <rosparam command="load" ns="darknet_ros" file="$(find darknet_ros)/config/ros.yaml"/>
+  <rosparam command="load" ns="darknet_ros" file="$(find darknet_ros)/test/yolov2.yaml"/>
+
+  <!-- Start darknet and ros wrapper -->
+  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen">
+    <param name="weights_path"          value="$(arg yolo_weights_path)" />
+    <param name="config_path"           value="$(arg yolo_config_path)" />
+    <remap from="/camera/rgb/image_raw" to="/left/image_color" />
+  </node>
+
+  <test pkg="darknet_ros" test-name="darknet_ros_object_detection" type="darknet_ros_object_detection-test" time-limit="500.0"/>
+    <!-- nav stack -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <rosparam file="$(find kobuki_2dnav_sim)/param/costmap_common_params_pc.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find kobuki_2dnav_sim)/param/costmap_common_params_pc.yaml" command="load" ns="local_costmap" />
